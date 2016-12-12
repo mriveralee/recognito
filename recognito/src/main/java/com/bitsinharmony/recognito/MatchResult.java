@@ -16,6 +16,8 @@
  */
 package com.bitsinharmony.recognito;
 
+import com.bitsinharmony.recognito.implementations.Recognito;
+
 /**
  * MatchResult represents the result of matching a <code>VoicePrint</code> against a given voice sample. 
  * It holds the user defined key of the voice print and a likelihood ratio expressed as a percentage.

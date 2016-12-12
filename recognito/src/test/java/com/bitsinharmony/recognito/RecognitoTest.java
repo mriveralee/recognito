@@ -24,6 +24,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 import java.util.Random;
 
+import com.bitsinharmony.recognito.implementations.Recognito;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import mockit.Verifications;
