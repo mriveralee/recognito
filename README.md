@@ -69,3 +69,10 @@ Amaury Crickx : I am by no means a speech processing academic expert, just a Jav
 So if you happen to have some knowledge of Speaker Recognition and want to help, you're most welcome !
 
 FWIW, I've presented "Voice Print for Dummies" at Devoxx France 2014 with the help of this lib as didactic material. Soon freely available on www.parleys.com... (in French)
+---
+# Compilation Using Maven
+`cd recognito/`
+`mvn compile`
+`mvn package`
+
+
