@@ -223,7 +223,7 @@ public abstract class BaseRecognito<K> {
         return converter.convertFileToDoubleArray(voiceSampleFile, this.sampleRate);
     }
 
-    private double[] extractFeatures(double[] voiceSample, float sampleRate) {
+    protected double[] extractFeatures(double[] voiceSample, float sampleRate) {
         AutocorrellatedVoiceActivityDetector voiceDetector = new AutocorrellatedVoiceActivityDetector();
         Normalizer normalizer = new Normalizer();
         LpcFeaturesExtractor lpcExtractor = new LpcFeaturesExtractor(sampleRate, 20);

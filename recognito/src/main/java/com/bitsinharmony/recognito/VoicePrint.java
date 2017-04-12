@@ -25,22 +25,21 @@ import com.bitsinharmony.recognito.distances.DistanceCalculator;
 
 /**
  * Represents a voice print in the system
- * 
+ *
  * @author Amaury Crickx
  */
 public final class VoicePrint
         implements Serializable {
 
     private static final long serialVersionUID = 5656438598778733593L;
-    
+
     private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
     private final Lock r = rwl.readLock();
     private final Lock w = rwl.writeLock();
-    
+
     private double[] features;
     private int meanCount;
 
-    
     /**
      * Package visible constructor for Hibernate and the likes
      */
@@ -57,11 +56,29 @@ public final class VoicePrint
     }
 
     /**
+     * Contructor for a voice print
+     * @param features the features
+     */
+    VoicePrint(double[] features, int meanCount) {
+        super();
+        this.features = features;
+        this.meanCount = meanCount;
+    }
+
+    /**
      * Copy constructor
      * @param print the VoicePrint to copy
      */
     VoicePrint(VoicePrint print) {
         this(Arrays.copyOf(print.features, print.features.length));
+    }
+
+    public double[] getFeatures() {
+      return (this.features == null) ? null : (double[]) this.features.clone();
+    }
+
+    public int getMeanCount() {
+      return this.meanCount;
     }
 
     /**
@@ -75,28 +92,28 @@ public final class VoicePrint
      */
     double getDistance(DistanceCalculator calculator, VoicePrint voicePrint) {
         r.lock();
-        try { 
+        try {
             return calculator.getDistance(this.features, voicePrint.features);
-        } 
+        }
         finally { r.unlock(); }
     }
 
     /**
      * Merges this voice print features with the given one.
-     * Threading : it is safe to call this method while other threads may request the distance of this voice 
+     * Threading : it is safe to call this method while other threads may request the distance of this voice
      * regarding another one in the sense that the distance calculation will not happen on half merged voice print
      * @param features the features to merge
      */
     void merge(double[] features) {
         if(this.features.length != features.length) {
-            throw new IllegalArgumentException("Features of new VoicePrint is of different size : [" + 
+            throw new IllegalArgumentException("Features of new VoicePrint is of different size : [" +
                     features.length + "] expected [" + this.features.length + "]");
         }
         w.lock();
-        try { 
+        try {
             merge(this.features, features);
             meanCount++;
-        } 
+        }
         finally { w.unlock(); }
     }
 
@@ -106,7 +123,7 @@ public final class VoicePrint
      * @see VoicePrint#merge(double[])
      */
     void merge(VoicePrint print) {
-        this.merge(print.features); 
+        this.merge(print.features);
     }
 
     /**
@@ -127,5 +144,5 @@ public final class VoicePrint
     public String toString() {
         return Arrays.toString(features);
     }
-    
+
 }
