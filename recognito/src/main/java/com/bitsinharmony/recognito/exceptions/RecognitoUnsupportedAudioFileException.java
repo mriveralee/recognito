@@ -7,7 +7,7 @@ package com.bitsinharmony.recognito.exceptions;
 public class RecognitoUnsupportedAudioFileException extends Exception {
 
     public RecognitoUnsupportedAudioFileException() {
-        // Nothing
+        super();
     }
 
     public RecognitoUnsupportedAudioFileException(String msg) {

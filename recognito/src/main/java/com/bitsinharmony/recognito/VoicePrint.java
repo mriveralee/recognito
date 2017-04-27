@@ -49,7 +49,7 @@ public final class VoicePrint
      * Contructor for a voice print
      * @param features the features
      */
-    VoicePrint(double[] features) {
+    public VoicePrint(double[] features) {
         super();
         this.features = features;
         this.meanCount = 1;
@@ -59,7 +59,7 @@ public final class VoicePrint
      * Contructor for a voice print
      * @param features the features
      */
-    VoicePrint(double[] features, int meanCount) {
+    public VoicePrint(double[] features, int meanCount) {
         super();
         this.features = features;
         this.meanCount = meanCount;
@@ -69,7 +69,7 @@ public final class VoicePrint
      * Copy constructor
      * @param print the VoicePrint to copy
      */
-    VoicePrint(VoicePrint print) {
+    public VoicePrint(VoicePrint print) {
         this(Arrays.copyOf(print.features, print.features.length));
     }
 
@@ -90,7 +90,7 @@ public final class VoicePrint
      * @param voicePrint the voice print
      * @return the distance
      */
-    double getDistance(DistanceCalculator calculator, VoicePrint voicePrint) {
+    public double getDistance(DistanceCalculator calculator, VoicePrint voicePrint) {
         r.lock();
         try {
             return calculator.getDistance(this.features, voicePrint.features);
@@ -104,7 +104,7 @@ public final class VoicePrint
      * regarding another one in the sense that the distance calculation will not happen on half merged voice print
      * @param features the features to merge
      */
-    void merge(double[] features) {
+    public void merge(double[] features) {
         if(this.features.length != features.length) {
             throw new IllegalArgumentException("Features of new VoicePrint is of different size : [" +
                     features.length + "] expected [" + this.features.length + "]");
@@ -122,7 +122,7 @@ public final class VoicePrint
      * @param print the voice print to merge
      * @see VoicePrint#merge(double[])
      */
-    void merge(VoicePrint print) {
+    public void merge(VoicePrint print) {
         this.merge(print.features);
     }
 
@@ -131,7 +131,7 @@ public final class VoicePrint
      * @param inner the inner features
      * @param outer the outer features
      */
-    private void merge(double[] inner, double[] outer) {
+    public void merge(double[] inner, double[] outer) {
         for (int i = 0; i < inner.length; i++) {
             inner[i] = (inner[i] * meanCount + outer[i]) / (meanCount + 1);
         }
